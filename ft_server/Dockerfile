@@ -22,6 +22,7 @@ RUN apt-get -y install 	php7.3-fpm \
 
 COPY ./srcs/slarrana.sh ./
 COPY ./srcs/slarrana.com ./tmp/slarrana.com
+COPY ./srcs/wordpress.sql ./tmp/wordpress.sql
 COPY ./srcs/slarrana_autoindex_off.com ./tmp/slarrana_autoindex_off.com
 COPY ./srcs/config.inc.php ./tmp/config.inc.php
 COPY ./srcs/wp-config.php ./tmp/wp-config.php

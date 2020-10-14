@@ -31,6 +31,7 @@ tar -xvzf latest.tar.gz
 rm latest.tar.gz
 mv wordpress/ /var/www/sergio
 mv /tmp/wp-config.php /var/www/sergio/wordpress
+mysql -u root wordpress < ./tmp/wordpress.sql
 
 #phpmyadmin
 cd /tmp/
