@@ -1,5 +1,19 @@
 #include "push_swap.h"
 
+int	valid_char(const char *n)
+{
+	int	i;
+
+	i = 0;
+	if (n[i] == '-' || n[i] == '+')
+		i++;
+	while (n[i] >= '0' && n[i] <= '9')
+		i++;
+	if (n[i] != '\0')
+		return (1);
+	return (0);
+}
+
 int check_args(int argc, char **argv)
 {
     int i;
@@ -8,6 +22,8 @@ int check_args(int argc, char **argv)
     i = 0;
     while (i < argc)
     {
+	    if (valid_char(argv[i]))
+		    return (-1);
         n = ft_atoi(argv[i]);
         if (n == 0 && ft_strncmp(argv[i], "0", 2) != 0)
             return (-1);

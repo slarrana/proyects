@@ -84,20 +84,32 @@ int check_rotate(char **list_a, char **list_b, int n, char **str)
     }
     if (list_a[0] && i > 1)
     {
-        if (ft_atoi(list_a[0]) > ft_atoi(list_a[i - 1]) || ft_atoi(list_a[1]) > ft_atoi(list_a[i - 1]))
+        if (ft_atoi(list_a[0]) > ft_atoi(list_a[i - 1]) && ft_atoi(list_a[1]) > ft_atoi(list_a[i - 1]))
         {
             com_rr(list_a, n);
             add_str(str, "rra\n");
 	    return (1);
         }
+	else if (ft_atoi(list_a[0]) > ft_atoi(list_a[i - 1]))
+        {
+            com_r(list_a, n);
+            add_str(str, "ra\n");
+	    return (1);
+        }
     }
     if(list_b[0] && j > 1)
     {
-        if (ft_atoi(list_b[0]) < ft_atoi(list_b[j - 1]) || ft_atoi(list_b[1]) < ft_atoi(list_b[j - 1]))
+        if (ft_atoi(list_b[0]) < ft_atoi(list_b[j - 1]) && ft_atoi(list_b[1]) < ft_atoi(list_b[j - 1]))
         {
             com_rr(list_b, n);
             add_str(str, "rrb\n");
-	    return (1);
+			return (1);
+        }
+	else if (ft_atoi(list_b[0]) < ft_atoi(list_b[j - 1]))
+        {
+            com_r(list_b, n);
+            add_str(str, "rb\n");
+			return (1);
         }
     }
     return (0);
@@ -246,20 +258,18 @@ int control_loop(char **list_a, char **list_b, int n)
 
 void finish_push_swap(char **list_b, int n, char **str)
 {
-    int i;
-
-    i = 0;
-    while (i < n && list_b[i])
-    {
-        add_str(str, "pa");
-	if (i + 1 < n && list_b[i + 1])
-	add_str(str, "\n");
-        i++;
-    }
+	int i;
+	
+	i = 0;
+	while (i < n && list_b[i])
+	{
+	    add_str(str, "pa\n");
+	    i++;
+	}
 	ft_putstr_fd(*str, 1);
-    free(*str);
-    *str = NULL;
-    exit (1);
+	free(*str);
+	*str = NULL;
+	exit (1);
 }
 
 void push_swap(char **list_a, int n)
@@ -309,17 +319,17 @@ void    check_value(int argc, char **argv)
     i = 0;
     while (i < argc)
     {
-	j = 0;
-	while (j < argc / 2)
-	{
-		if (i != j && list[i] == list[j])
+		j = 0;
+		while (j < argc / 2)
 		{
-			printf("Error\n");
-			exit(-1);
+			if (i != j && list[i] == list[j])
+			{
+				printf("Error\n");
+				exit(-1);
+			}
+			j++;
 		}
-		j++;
-	}
-	i++;
+		i++;
     }
 }
 
@@ -333,6 +343,7 @@ int main(int argc, char **argv)
     {
 	    check_value(argc - 1, &argv[1]);
 	    push_swap(&argv[1], argc - 1);
+	   
 	    exit(0);
     }
     else if (ft_string_space(argv[1]) == 1 && argc == 2)

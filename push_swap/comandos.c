@@ -41,12 +41,12 @@ void    com_r(char **list, int n)
 
     i = 0;
     tmp = list[0];
-    while (i < n - 1 && list[i])
+    while (list[i + 1] && i < n)
     {
         list[i] = list[i + 1];
         i++;
     }
-    list[i - 1] = tmp;
+    list[i] = tmp;
 }
 
 void com_rr(char **list, int n)
